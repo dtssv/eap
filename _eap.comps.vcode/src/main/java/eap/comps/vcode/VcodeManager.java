@@ -46,7 +46,7 @@ public class VcodeManager {
 	
 	public static BufferedImage createImage(String text, String vcodeSence, IDataScope dataScope) {
 		BufferedImage img = getVcodeProducer().createImage(text);
-		dataScope.set(dataScope + vcodeSence, text);
+		dataScope.set(VCODE_KEY_PREFIX + vcodeSence, text);
 		return img;
 	}
 	

@@ -74,7 +74,12 @@ public class RedisBeanDefinitionParser implements BeanDefinitionParser {
 			JedisShardInfo shardInfo = new JedisShardInfo(
 				env.getProperty(String.format("cache.%s.host", id)),
 				env.getProperty(String.format("cache.%s.port", id), Integer.class, 6379),
-				env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000),
+				env.getProperty(String.format("cache.%s.connectionTimeout", id), Integer.class,
+					env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000)
+				),
+				env.getProperty(String.format("cache.%s.soTimeout", id), Integer.class,
+					env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000)
+				),
 				env.getProperty(String.format("cache.%s.weight", id), Integer.class, 1)
 			);
 			shardInfo.setPassword(StringUtil.defaultIfBlank(env.getProperty(String.format("cache.%s.password", id)), null));
@@ -96,8 +101,15 @@ public class RedisBeanDefinitionParser implements BeanDefinitionParser {
 				JedisShardInfo shardInfo = new JedisShardInfo(
 					env.getProperty(String.format("cache.%s.nodes.%d.host", id, i)),
 					env.getProperty(String.format("cache.%s.nodes.%d.port", id, i), Integer.class, 6379),
-					env.getProperty(String.format("cache.%s.nodes.%d.timeout", id, i), Integer.class, 
-						env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000)
+					env.getProperty(String.format("cache.%s.nodes.%d.connectionTimeout", id, i), Integer.class, 
+						env.getProperty(String.format("cache.%s.connectionTimeout", id), Integer.class, 
+							env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000)
+						)
+					),
+					env.getProperty(String.format("cache.%s.nodes.%d.soTimeout", id, i), Integer.class, 
+						env.getProperty(String.format("cache.%s.soTimeout", id), Integer.class, 
+							env.getProperty(String.format("cache.%s.timeout", id), Integer.class, 2000)
+						)
 					),
 					env.getProperty(String.format("cache.%s.nodes.%d.weight", id, i), Integer.class, 1)
 				);

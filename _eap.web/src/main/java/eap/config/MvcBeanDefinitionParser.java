@@ -107,7 +107,7 @@ public class MvcBeanDefinitionParser implements BeanDefinitionParser {
 			viewResolverDef.getPropertyValues().add("exposeSpringMacroHelpers", env.getProperty("app.web.viewResolver.exposeSpringMacroHelpers", "true"));
 			viewResolverDef.getPropertyValues().add("exposeRequestAttributes", env.getProperty("app.web.viewResolver.exposeRequestAttributes", "false"));
 			viewResolverDef.getPropertyValues().add("exposeSessionAttributes", env.getProperty("app.web.viewResolver.exposeSessionAttributes", "false"));
-			viewResolverDef.getPropertyValues().add("requestContextAttribute", env.getProperty("app.web.viewResolver.requestContextAttribute", "rc"));
+			viewResolverDef.getPropertyValues().add("requestContextAttribute", env.getProperty("app.web.viewResolver.requestContextAttribute", "RC"));
 			parserContext.getRegistry().registerBeanDefinition(viewResolverId, viewResolverDef);
 			parserContext.registerComponent(new BeanComponentDefinition(viewResolverDef, viewResolverId));
 			

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:eapCache="http://eap/schema/comps/cache"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://eap/schema/comps/cache http://eap/schema/comps/cache.xsd">
+		
+	<eapCache:redis id="jedisPool" />
+	
+	<bean id="redisConnectionFactory" class="eap.comps.cache.redis.connection.RedisConnectionFactory">
+		<property name="client" ref="jedisPool" />
+	</bean>
+	
+	<bean id="cache" class="eap.comps.cache.redis.RedisCache">
+		<property name="redisConnectionFactory" ref="redisConnectionFactory" />
+	</bean>
+	
+</beans>
